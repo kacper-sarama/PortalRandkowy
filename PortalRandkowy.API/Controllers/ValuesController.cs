@@ -22,6 +22,7 @@ namespace PortalRandkowy.API.Controllers
             _context = context;
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
@@ -39,7 +40,6 @@ namespace PortalRandkowy.API.Controllers
         }
 
         // POST api/values
-
         [HttpPost]
         public async Task<IActionResult> AddValue([FromBody] Value value)
         {
