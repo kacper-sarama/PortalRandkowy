@@ -9,9 +9,9 @@ namespace PortalRandkowy.API.Helpers
         {
             var age = DateTime.Today.Year - datetime.Year;
 
-            if (datetime.AddYears(age) > DateTime.Today)
+            if(datetime.AddYears(age) > DateTime.Today)
                 age--;
-
+            
             return age;
         }
 
@@ -19,7 +19,7 @@ namespace PortalRandkowy.API.Helpers
         {
             response.Headers.Add("Application-Error", message);
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
-            response.Headers.Add("Access-Control-Allow-Origin", "*");
+            response.Headers.Add("Access-Control-Allow-Orgin", "*");
         }
     }
 }

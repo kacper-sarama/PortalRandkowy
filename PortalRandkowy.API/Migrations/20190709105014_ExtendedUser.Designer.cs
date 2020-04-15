@@ -9,7 +9,7 @@ using PortalRandkowy.API.Data;
 namespace PortalRandkowy.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200414162852_ExtendedUser")]
+    [Migration("20190709105014_ExtendedUser")]
     partial class ExtendedUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

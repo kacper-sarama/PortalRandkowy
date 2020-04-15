@@ -37,8 +37,7 @@ namespace PortalRandkowy.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(opt =>
-                {
+                .AddJsonOptions(opt => {
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
             services.AddCors();
@@ -48,8 +47,7 @@ namespace PortalRandkowy.API
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(options =>
-                        {
+                        .AddJwtBearer(options =>{
                             options.TokenValidationParameters = new TokenValidationParameters
                             {
                                 ValidateIssuerSigningKey = true,
@@ -69,9 +67,9 @@ namespace PortalRandkowy.API
             }
             else
             {
-                app.UseExceptionHandler(builder =>
+                app.UseExceptionHandler(builder => 
                 {
-                    builder.Run(async context =>
+                    builder.Run(async context => 
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 

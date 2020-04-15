@@ -10,26 +10,20 @@ namespace PortalRandkowy.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForListDto>()
-                .ForMember(dest => dest.PhotoUrl, opt =>
-                {
-                    opt.MapFrom(source => source.Photos.FirstOrDefault(p => p.IsMain).Url);
+                .ForMember(dest => dest.PhotoUrl, opt => {
+                    opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
                 })
-                .ForMember(dest => dest.Age, opt =>
-                {
-                    opt.ResolveUsing(source => source.DateOfBirth.CalculateAge());
+                .ForMember(dest => dest.Age, opt => {
+                    opt.ResolveUsing(src => src.DateOfBirth.CalculateAge());
                 });
-
-            CreateMap<User, UserForeDetailsDto>()
-                .ForMember(dest => dest.PhotoUrl, opt =>
-                {
-                    opt.MapFrom(source => source.Photos.FirstOrDefault(p => p.IsMain).Url);
+            CreateMap<User, UserForDetailedDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => {
+                    opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
                 })
-                .ForMember(dest => dest.Age, opt =>
-                {
-                    opt.ResolveUsing(source => source.DateOfBirth.CalculateAge());
+                .ForMember(dest => dest.Age, opt => {
+                    opt.ResolveUsing(src => src.DateOfBirth.CalculateAge());
                 });
-
-            CreateMap<Photo, PhotosForDetailsDto>();
+            CreateMap<Photo, PhotosForDetailedDto>();
         }
     }
 }

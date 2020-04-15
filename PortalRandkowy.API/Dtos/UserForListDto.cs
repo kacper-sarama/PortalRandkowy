@@ -7,6 +7,7 @@ namespace PortalRandkowy.API.Dtos
         public int Id { get; set; }
         public string Username { get; set; }
 
+
         // Postawowe informacje
         public string Gender { get; set; }          // Płeć
         public int Age { get; set; }                // Wiek

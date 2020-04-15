@@ -1,7 +1,7 @@
 import { Photo } from './photo';
 
 export interface User {
-    // Zakładka Podstawowe informacje
+    /** Postawowe informacje */
     id: number;
     username: string;
     gender: string;
@@ -11,8 +11,7 @@ export interface User {
     lastActive: Date;
     city: string;
     country: string;
-
-    // Zakładka Info
+    /** Zakładka Info */
     growth: string;
     eyeColor: string;
     hairColor: string;
@@ -21,28 +20,24 @@ export interface User {
     profession: string;
     children: string;
     languages: string;
-
-    // Zakładka O mnie
+    /** Zakłada  O mnie */
     motto: string;
     description: string;
     personality: string;
     lookingFor: string;
-
-    // Zakładka Pasje/Zainteresowania
+    /** Zakłaka Pasje, zaiteresowania */
     interests: string;
     freeTime: string;
     sport: string;
     movies: string;
     music: string;
-
-    // Zakładka Preferencje
+    /** Zakładka Preferencje */
     iLike: string;
     idoNotLike: string;
     makesMeLaugh: string;
     itFeelsBestIn: string;
     friendeWouldDescribeMe: string;
-
-    // Zakładka Zdjęcia
+    /** Zakładka Zdjecia */
     photos: Photo[];
     photoUrl: string;
 }

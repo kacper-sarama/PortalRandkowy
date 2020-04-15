@@ -18,7 +18,6 @@ namespace PortalRandkowy.API.Controllers
     {
         private readonly IAuthRepository _repository;
         private readonly IConfiguration _config;
-
         public AuthController(IAuthRepository repository, IConfiguration config)
         {
             _config = config;
@@ -31,14 +30,14 @@ namespace PortalRandkowy.API.Controllers
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
             if (await _repository.UserExists(userForRegisterDto.Username))
-                return BadRequest("Użytkownik o takiej nazwie już istnieje");
+                return BadRequest("Użytkownik o takiej nazwie już istnieje !");
 
             var userToCreate = new User
             {
                 Username = userForRegisterDto.Username
             };
 
-            var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
+            var cretedUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
         }
@@ -46,33 +45,33 @@ namespace PortalRandkowy.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepository = await _repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
-            if (userFromRepository == null)
+            if (userFromRepo == null)
                 return Unauthorized();
 
             // create Token
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepository.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepository.Username)
+                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddHours(12),
-                SigningCredentials = credentials
+                SigningCredentials = creds
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new { token = tokenHandler.WriteToken(token) });
+            return Ok(new { token = tokenHandler.WriteToken(token)});
         }
     }
 }

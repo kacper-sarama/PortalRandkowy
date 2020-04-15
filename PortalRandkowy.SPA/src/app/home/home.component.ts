@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
 
   registerMode = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -19,8 +19,7 @@ export class HomeComponent implements OnInit {
     this.registerMode = true;
   }
 
-  cancelRegistrationMode(registerMode: boolean) {
+  cancelRegisterMode(registerMode: boolean) {
     this.registerMode = registerMode;
   }
-
 }

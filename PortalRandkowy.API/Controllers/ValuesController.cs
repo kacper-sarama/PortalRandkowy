@@ -10,17 +10,19 @@ using PortalRandkowy.API.Models;
 
 namespace PortalRandkowy.API.Controllers
 {
-    // http://localhost:5000/api/Values
+    // Post http://localhost:5000/api/Values
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _context;
+
         public ValuesController(DataContext context)
         {
             _context = context;
         }
+     
         // GET api/values
         [AllowAnonymous]
         [HttpGet]
@@ -65,7 +67,7 @@ namespace PortalRandkowy.API.Controllers
         {
             var data = await _context.Values.FindAsync(id);
 
-            if (data == null)
+            if(data == null)
                 return NoContent();
 
             _context.Values.Remove(data);

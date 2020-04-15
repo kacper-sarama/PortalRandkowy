@@ -5,13 +5,10 @@ using System.Text;
 using Newtonsoft.Json;
 using PortalRandkowy.API.Models;
 
-namespace PortalRandkowy.API.Data
-{
-    public class Seed
-    {
+namespace PortalRandkowy.API.Data {
+    public class Seed {
         private readonly DataContext _context;
-        public Seed(DataContext context)
-        {
+        public Seed (DataContext context) {
             _context = context;
         }
 
@@ -33,19 +30,18 @@ namespace PortalRandkowy.API.Data
 
                     _context.Users.Add(user);
                 }
-            }
 
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }          
         }
 
         private void CreatePasswordHashSalt(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-
+            }           
         }
     }
 }

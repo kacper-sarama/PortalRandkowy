@@ -8,7 +8,6 @@ namespace PortalRandkowy.API.Data
     public class UserRepository : GenericRepository, IUserRepository
     {
         private readonly DataContext _context;
-
         public UserRepository(DataContext context) : base(context)
         {
             _context = context;

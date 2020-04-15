@@ -4,11 +4,10 @@ namespace PortalRandkowy.API.Dtos
 {
     public class UserForRegisterDto
     {
-        [Required(ErrorMessage = "Nazwa użytkownika jest wymagana")]
+        [Required(ErrorMessage="Nazwa użytkownika jest wymagana")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "Hasło jest wymagane")]
-        [MaxLength(12, ErrorMessage = "Hasło może mieć maksymalnie 12 znaków")]
-        [MinLength(6, ErrorMessage = "Hasło powinno mieć conajmniej 6 znaków")]
+        [Required(ErrorMessage="Hasło jest wymagane")]
+        [StringLength(12, MinimumLength=6, ErrorMessage="Hasło musi się składać z 6 do 12 znaków")]
         public string Password { get; set; }
     }
 }

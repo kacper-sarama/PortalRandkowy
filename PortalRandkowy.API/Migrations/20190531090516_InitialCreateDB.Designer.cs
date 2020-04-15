@@ -8,7 +8,7 @@ using PortalRandkowy.API.Data;
 namespace PortalRandkowy.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200404151851_InitialCreateDB")]
+    [Migration("20190531090516_InitialCreateDB")]
     partial class InitialCreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
