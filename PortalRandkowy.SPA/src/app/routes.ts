@@ -6,8 +6,8 @@ import { MessagesComponent } from './messages/messages.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'users', component: UserListComponent },
-    { path: 'likes', component: LikesComponent },
-    { path: 'messages', component: MessagesComponent },
+    { path: 'uzytkownicy', component: UserListComponent },
+    { path: 'polubienia', component: LikesComponent },
+    { path: 'wiadomosci', component: MessagesComponent },
     { path: '*', redirectTo: 'home', pathMatch: 'full' }
 ];
