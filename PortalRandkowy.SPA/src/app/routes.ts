@@ -9,5 +9,5 @@ export const appRoutes: Routes = [
     { path: 'uzytkownicy', component: UserListComponent },
     { path: 'polubienia', component: LikesComponent },
     { path: 'wiadomosci', component: MessagesComponent },
-    { path: '*', redirectTo: 'home', pathMatch: 'full' }
+    { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
