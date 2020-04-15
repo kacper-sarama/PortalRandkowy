@@ -19,6 +19,8 @@ namespace PortalRandkowy.API.Helpers
         {
             response.Headers.Add("Application-Error", message);
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
+            // Kacper - poniższa linijka była oryginalnie w kursie
+            // response.Headers.Add("Access-Control-Allow-Orgin", "*");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
     }

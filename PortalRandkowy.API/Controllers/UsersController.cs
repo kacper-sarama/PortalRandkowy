@@ -9,9 +9,9 @@ using PortalRandkowy.API.Dtos;
 
 namespace PortalRandkowy.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _repo;
@@ -26,7 +26,7 @@ namespace PortalRandkowy.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            throw new Exception("Generujemy ręcznie błąd");
+            throw new Exception("Generujemy recznie blad");
 
             var users = await _repo.GetUsers();
 
@@ -41,6 +41,7 @@ namespace PortalRandkowy.API.Controllers
             var user = await _repo.GetUser(id);
 
             var userToReturn = _mapper.Map<UserForeDetailsDto>(user);
+
             return Ok(userToReturn);
         }
     }
