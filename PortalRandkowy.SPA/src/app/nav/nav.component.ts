@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
       .subscribe(next => {
         this.alertifyService.success("Zalogowałeś się do aplikacji");
       }, error => {
-        this.alertifyService.error("Wystąpił błąd logowania");
+        this.alertifyService.error(error);
       }, () => {
         this.router.navigate(['/uzytkownicy']);
       });

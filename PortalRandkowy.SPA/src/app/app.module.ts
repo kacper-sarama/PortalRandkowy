@@ -20,6 +20,7 @@ import { LikesComponent } from './likes/likes.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -53,7 +54,8 @@ export function tokenGetter() {
       AuthService,
       AlertifyService,
       UserService,
-      AuthGuard
+      AuthGuard,
+      ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent
