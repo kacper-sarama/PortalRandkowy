@@ -18,6 +18,7 @@ namespace PortalRandkowy.API.Helpers
                 {
                     opt.ResolveUsing(source => source.DateOfBirth.CalculateAge());
                 });
+
             CreateMap<User, UserForeDetailsDto>()
                 .ForMember(dest => dest.PhotoUrl, opt =>
                 {
@@ -26,7 +27,8 @@ namespace PortalRandkowy.API.Helpers
                 .ForMember(dest => dest.Age, opt =>
                 {
                     opt.ResolveUsing(source => source.DateOfBirth.CalculateAge());
-                }); ;
+                });
+
             CreateMap<Photo, PhotosForDetailsDto>();
         }
     }
