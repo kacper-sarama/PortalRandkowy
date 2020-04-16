@@ -24,6 +24,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { UserDetailsResolver } from './_resolvers/user-details.resolver';
+import { UserListResolver } from './_resolvers/user-list.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -61,7 +63,9 @@ export function tokenGetter() {
       AlertifyService,
       UserService,
       AuthGuard,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      UserDetailsResolver,
+      UserListResolver
    ],
    bootstrap: [
       AppComponent
