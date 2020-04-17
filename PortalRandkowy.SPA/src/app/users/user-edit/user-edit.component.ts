@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
@@ -14,7 +14,15 @@ import { NgForm } from '@angular/forms';
 })
 export class UserEditComponent implements OnInit {
 
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editFormViewChild.dirty) {
+      $event.returnValue = true;
+    }
+  }
+
   @ViewChild('editForm') editFormViewChild: NgForm;
+
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
