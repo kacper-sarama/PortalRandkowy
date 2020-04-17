@@ -22,7 +22,7 @@ export class UserDetailsResolver implements Resolve<User> {
                 this.router.navigate(['/uzytkownicy']);
                 return of(null);
             })
-        )
+        );
     }
 
 }
