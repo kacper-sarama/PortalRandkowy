@@ -30,6 +30,8 @@ namespace PortalRandkowy.API.Helpers
                 });
 
             CreateMap<Photo, PhotosForDetailsDto>();
+
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }

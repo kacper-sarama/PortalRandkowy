@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +42,31 @@ namespace PortalRandkowy.API.Controllers
             var userToReturn = _mapper.Map<UserForeDetailsDto>(user);
 
             return Ok(userToReturn);
+        }
+
+        [HttpPut("id")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
+        {
+            // jeżeli jesteś nie autoryzowanym użytkownikiem
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            // jeżeli natomiast jesteś autoryzowanym użytkownikiem, to
+            // pobieramy aktualne dane użytkownika z repo (które teraz chcemy zmodyfikować)
+            // i przypisujemy do zmiennej userFromRepo
+            var userFromRepo = await  _repo.GetUser(id);
+
+            // Następnie nadpisujemy te dane 
+            // danymi przychodzącymi z metody UpdateUser.
+            // Do tego posłuży nam maper.
+            _mapper.Map(userForUpdateDto, userFromRepo);
+
+            // Jeśli zapis się powiódł to zwracamy NoContent
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            // W przeciwnym wypadku rzucamy wyjątek
+            throw new Exception($"Aktualizacja użytkownika o id: {id} nie powiodła się przy zapisywaniu do bazy");
         }
     }
 }
