@@ -6,6 +6,8 @@ import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/_services/user.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -29,7 +31,9 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -67,8 +71,12 @@ export class UserEditComponent implements OnInit {
   }
 
   updateUser() {
-    console.log(this.user);
-    this.alertifyService.success('Profil pomyślnie zaktualizowany');
-    this.editFormViewChild.reset(this.user);
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user)
+      .subscribe(next => {
+        this.alertifyService.success('Profil pomyślnie zaktualizowany');
+        this.editFormViewChild.reset(this.user);
+      }, error => {
+        this.alertifyService.error(error);
+      });
   }
 }
