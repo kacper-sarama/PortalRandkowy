@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 // import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -65,7 +66,8 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
-      NgxGalleryModule
+      NgxGalleryModule,
+      FileUploadModule
    ],
    providers: [
       AuthService,
