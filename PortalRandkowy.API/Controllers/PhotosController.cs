@@ -74,20 +74,46 @@ namespace PortalRandkowy.API.Controllers {
             if (await _repository.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("GetPhoto", new {id = photo.Id}, photoToReturn);
+                return CreatedAtRoute("GetPhoto", new { id = photo.Id}, photoToReturn);
             }
-
+                
             return BadRequest("Nie można dodać zdjęcia");
         }
+
         [HttpGet("{id}", Name = "GetPhoto")]
-        public async Task<IActionResult> GetPhotoint (int id)
+        public async Task<IActionResult> GetPhoto(int id)
         {
             var photoFromRepo = await _repository.GetPhoto(id);
 
             var photoForReturn = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
 
             return Ok(photoForReturn);
+        }
 
+        [HttpPost("{id}/setMain")]
+        public async Task<IActionResult> SetMainPhoto(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var user = await _repository.GetUser(userId);
+
+            if (!user.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+
+            var photFromRepo = await _repository.GetPhoto(id);
+
+            if (photFromRepo.IsMain)
+                return BadRequest("To już jest główne zdjęcie");
+
+            var currentMainPhoto = await _repository.GetMainPhotoForUser(userId);
+            currentMainPhoto.IsMain = false;
+            photFromRepo.IsMain = true;
+
+            if (await _repository.SaveAll())
+                return NoContent();
+
+            return BadRequest("Nie można ustawić zdjęcia jako głównego");
         }
     }
 }
