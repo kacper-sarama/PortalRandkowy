@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Photo } from '../../_models/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-photos',
@@ -15,6 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PhotosComponent implements OnInit {
 
   @Input() photos: Photo[];
+  @Output() getUserPhotoChange = new EventEmitter<string>();
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
@@ -68,6 +68,7 @@ export class PhotosComponent implements OnInit {
       this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
       this.currentMainPhoto.isMain = false;
       photo.isMain = true;
+      this.getUserPhotoChange.emit(photo.url);
     }, error => {
       this.alertify.error(error);
     });

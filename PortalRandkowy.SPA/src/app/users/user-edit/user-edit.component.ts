@@ -79,4 +79,8 @@ export class UserEditComponent implements OnInit {
         this.alertifyService.error(error);
       });
   }
+
+  updateMainPhoto(photoUrl: string) {
+    this.user.photoUrl = photoUrl;
+  }
 }
